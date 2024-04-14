@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Members Only Login</title>
+</head>
+<body>
+  <h1>Log In</h1>
+  <p>or <a href="/register">register</a></p>
+  <form action="/login" method="POST">
+    <label>
+      Username
+      <input type="text" pattern="[\w!@#$%^&\*]*" minlength="3" name="username" required>
+    </label>
+
+    <label>
+      Password
+      <input type="password" pattern="[\w!@#$%^&*]*" name="password" minlength="8" required>
+    </label>
+
+    <button>Submit</button>
+  </form>
+</body>
+</html>

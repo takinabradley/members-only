@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Members Only</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <header>
+      <h1>Members-only</h1>
+      <% if(user.canViewMemberOnlyContent) { %>
+        <button>Post a message</button>
+      <% } %>
+    </header>
+    <main>
+      <% if(!user.canViewMemberOnlyContent) { %>
+        <div class="become-member">
+          <p>Hey, you're not a member yet!</p>
+          <p>Become a member by entering the Secret Code!</p>
+          <form action="/become-member" method="POST">
+            <input type="text" name="secretCode">
+            <button>Become Member!</button>
+          </form>
+        </div>
+      <% } %>
+
+      <div class="messages">
+        <% messages.forEach(message => { %>
+          <header>
+            <h2><%= message.title %></h2>
+            <% if(user.canViewMemberOnlyContent) { %>
+              <h3>Author: <%= message.author.username %> </h3>
+            <% } %>
+            <% if(user.canViewMemberOnlyContent) { %>
+              <h3>Date: <%= message.createdAt.toString() %> </h3>
+            <% } %>
+          </header>
+          
+          <p><%= message.text %></p>
+        <% }) %>
+      </div>
+    </main>
+  </body>
+</html>
