@@ -23,15 +23,6 @@ router.post('/become-member', asyncErrorHandler(async (req, res) => {
   if(!req.user) return res.json({err: "not logged in", msg: "cannot create message"})
   if(req.body.secretCode === secretCode) {
     await User.updateOne({_id: req.user.id}, {isMember: true})
-  }
-
-  res.redirect('/')
-}))
-
-router.post('/become-admin', asyncErrorHandler(async (req, res) => {
-  if(!req.user) return res.json({err: "not logged in", msg: "cannot create message"})
-  if(req.body.secretCode === secretCode) {
-    await User.updateOne({_id: req.user.id}, {isMember: true})
   } else if (req.body.secretCode === secretAdminCode) {
     await User.updateOne({_id: req.user.id}, {isMember: true, isAdmin: true})
   }
