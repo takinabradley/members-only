@@ -3,12 +3,27 @@
   <head>
     <title>Members Only</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="/javascripts/index.js" defer></script>
   </head>
   <body>
     <header>
       <h1>Members-only</h1>
       <% if(user.canViewMemberOnlyContent) { %>
-        <button>Post a message</button>
+        <button class="post-message">Post a message</button>
+        <dialog>
+          <form action="/post" method="POST">
+            <label>
+              Title 
+              <input type="text" name="title" required>
+            </label>
+            <label>
+              Text 
+              <textarea name="text"></textarea>
+            </label>
+            <button value="cancel" formmethod="dialog">Cancel</button>
+            <button type="submit">Submit</button>
+          </form>
+        </dialog>
       <% } %>
     </header>
     <main>
@@ -36,8 +51,20 @@
           </header>
           
           <p><%= message.text %></p>
+          <% if(user.isAdmin) { %>
+            <form action="/delete" method="POST">
+              <input type="hidden" value="<%= message.id %>" name="messageid">
+              <button>Delete</button>
+            </form>
+          <% } %>
         <% }) %>
       </div>
     </main>
+
+    <footer>
+      <form action="/logout" method="POST">
+        <button>Log Out</button>
+      </form>
+    </footer>
   </body>
 </html>
